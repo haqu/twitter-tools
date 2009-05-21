@@ -39,7 +39,7 @@ puts "targets"
 
 count_added = 0
 users.each do |u|
-  # chirpy.create_friendship(u)
+  chirpy.create_friendship(u)
   count_added += 1
   puts "%-2d %s" % [count_added,u]
 end

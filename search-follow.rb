@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 query = ARGV[0] || exit
-query = "\"#{query}\"" # EXACT match
+query = '"'+query+'"' # EXACT match
 
 require 'rubygems'
 require 'yaml'
@@ -37,7 +37,7 @@ puts "targets"
 
 count_added = 0
 users.each do |u|
-  # chirpy.create_friendship(u)
+  chirpy.create_friendship(u)
   count_added += 1
   puts "%-2d %s" % [count_added,u]
 end
