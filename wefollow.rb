@@ -41,11 +41,11 @@ count_added = 0
 users.each do |u|
   chirpy.create_friendship(u)
   count_added += 1
-  puts "%-2d %s" % [count_added,u]
+  puts "%-3d %s" % [count_added,u]
 end
 puts
 
 count_friends = chirpy.friends.search('user').count
-puts "#{username} following #{count_friends} users (#{count_added} added)"
+puts "#{username} follows #{count_friends} people (#{count_added} added)"
 
 puts
