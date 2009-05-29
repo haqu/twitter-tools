@@ -26,8 +26,8 @@ password = config['password']
 
 puts
 puts "[*] Unfollowing users"
-puts "username: "+username
-puts "users count: "+users.length
+puts "username: #{username}"
+puts "users count: #{users.length}"
 puts
 
 chirpy = Chirpy.new(username,password)
