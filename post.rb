@@ -13,7 +13,8 @@ password = config['password']
 puts
 puts "[*] Posting message"
 puts "username: "+username
-puts "message: "+message
+
+puts '',message,''
 
 users = []
 

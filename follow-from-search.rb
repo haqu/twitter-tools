@@ -1,27 +1,25 @@
 #!/usr/bin/env ruby
 
-tag = ARGV[0] || exit
+query = ARGV[0] || exit
+query = "\"#{query}\"" # EXACT match
 
 require 'rubygems'
 require 'yaml'
 require 'chirpy'
-require 'open-uri'
 
 config = YAML::load(File.open('config.yaml'))
 username = config['username']
 password = config['password']
 
 puts
-puts "[*] Extracting and following users from WeFollow"
+puts "[*] Following users from twitter search"
 puts "username: "+username
-puts "tag: "+tag
+puts "search query: "+query
 puts
 
-url = "http://wefollow.com/tag/#{tag}"
-
 users = []
-Hpricot(open(url)).search("div.main-info h3 a").each do |u|
-  users << u.innerHTML
+Chirpy.search(query).search('author').each do |a|
+  users << a.at('uri').innerHTML.split('/').last
 end
 
 chirpy = Chirpy.new(username,password)

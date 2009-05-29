@@ -1,7 +1,20 @@
 #!/usr/bin/env ruby
 
-query = ARGV[0] || exit
-query = '"'+query+'"' # EXACT match
+users = []
+
+if not ARGV.length.zero?
+  ARGV.each do |u|
+    users << u
+  end
+end
+
+if not STDIN.tty?
+  STDIN.read.split("\n").each do |u|
+    users << u
+  end
+end
+
+users.empty? && exit
 
 require 'rubygems'
 require 'yaml'
@@ -12,19 +25,14 @@ username = config['username']
 password = config['password']
 
 puts
-puts "[*] Searching and following"
+puts "[*] Following users"
 puts "username: "+username
-puts "search query: "+query
+puts "users count: "+users.length
 puts
-
-users = []
-Chirpy.search(query).search('author').each do |a|
-  users << a.at('uri').innerHTML.split('/').last
-end
 
 chirpy = Chirpy.new(username,password)
 
-friends = []
+friends = [] # following
 chirpy.friends.search('user').each do |u|
   friends << u.at('screen_name').innerHTML
 end
@@ -37,7 +45,13 @@ puts "targets"
 
 count_added = 0
 users.each do |u|
-  chirpy.create_friendship(u)
+  begin
+    chirpy.create_friendship(u)
+  rescue Exception => e
+    next if e.class == Timeout::Error
+    exit if e.class == Interrupt
+    puts "#{e.class} #{e}"
+  end
   count_added += 1
   puts "%-3d %s" % [count_added,u]
 end
