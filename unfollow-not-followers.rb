@@ -10,30 +10,34 @@ password = config['password']
 
 puts
 puts "[*] Unfollowing those who don't follow you back"
-puts "username: "+username
-puts
-
-users = []
+puts "username : #{username}"
 
 chirpy = Chirpy.new(username,password)
 
 followers = []
-
 chirpy.followers.search('user').each do |u|
   name = u.at('screen_name').innerHTML
   followers << name
 end
 
-puts "targets"
-count = 0
+targets = []
 chirpy.friends.search('user').each do |u|
   name = u.at('screen_name').innerHTML
   if not followers.include?(name)
-    chirpy.destroy_friendship(name)
-    count += 1
-    puts "%-3d %s" % [count,name]
+    targets << name
   end
 end
+
+puts "targets  : #{targets.count}"
+puts
+
+count = 0
+targets.each do |t|
+  chirpy.destroy_friendship(t)
+  count += 1
+  puts "%-3d %s" % [count,t]
+end
+
 puts
 
 num_friends = chirpy.friends.search('user').length

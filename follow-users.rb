@@ -26,8 +26,8 @@ password = config['password']
 
 puts
 puts "[*] Following users"
-puts "username: #{username}"
-puts "users count: #{users.length}"
+puts "username : #{username}"
+puts "targets  : #{users.count}"
 puts
 
 chirpy = Chirpy.new(username,password)
@@ -40,8 +40,6 @@ end
 users -= friends
 users.delete(username)
 users.uniq!
-
-puts "targets"
 
 count_added = 0
 users.each do |u|
