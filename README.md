@@ -5,33 +5,35 @@ Before using these tools please consider reading [Twitter's Terms of Service][1]
 [1]: http://twitterapi.pbworks.com/Terms-of-Service
 [2]: http://twitterapi.pbworks.com/Rate-limiting
 
+Twitter tools requires chirpy:
+
+    $ git clone git://github.com/ashrewdmint/chirpy.git
+    $ cd chirpy
+    $ gem build chirpy.gemspec
+    $ sudo gem install chirpy-<version>.gem
+
 Template for config.yaml
 
     username: <twitter_username>
     password: <twitter_password>
 
-Installing chirpy
+## Usage Examples
 
-    $ git clone git://github.com/ashrewdmint/chirpy.git
-    $ cd chirpy
-    $ gem build chirpy.gemspec
-    $ sudo gem install chirpy-x.x.x.gem
+    $ ./post.rb "message"
 
-## Summary
-
-    ./post.rb "message"
-
-    ./follow-users.rb user1 user2 user3
-    ./follow-users.rb < userlist.txt
+    $ ./follow-users.rb user1 user2 user3
+    $ ./follow-users.rb < userlist.txt
   
-    ./follow-from-search.rb "search query"
+    $ ./follow-from-search.rb "search query"
 
-    ./follow-from-wefollow.rb tag
+    $ ./follow-from-wefollow.rb tag
 
-    ./unfollow-users.rb user1 user3
-    ./unfollow-users.rb < userlist.txt
+    $ ./unfollow-users.rb user1 user3
+    $ ./unfollow-users.rb < userlist.txt
     
     ./unfollow-not-followers.rb
+
+More details below.
 
 ## post.rb
 
